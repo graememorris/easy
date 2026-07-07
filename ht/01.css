@@ -1,0 +1,17 @@
+
+body{margin: 0px; padding: 0px; font: 18px helvetica}
+body>div{display: none}
+
+*[id]>*[class]{position: absolute; border-width: 1px; border-style: dotted;}
+*[id="fd01"]>*[class]{border-color: #09f;}
+*[id="td01"]>*[class]{border-color: #f90;}
+*[id]>*[class]>div{height: 100%; width: 100%;}
+/**[id]>*[class]>div div{margin: 6px;}*/
+
+.top{position: absolute; top: 12px; left: 150px; width: 960px; height: 24px; overflow: clip;}
+.left{position: absolute; top: 48px; left: 12px; width: 360px; min-height: 200px;}
+.left div{overflow-wrap: break-word;}
+.right{position: absolute; top: 48px; left: 384px; width: 900px; min-height: 200px;}
+/*.right div:first-child{margin: 6px;}*/
+
+/*div{margin: 6px;}*/

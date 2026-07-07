@@ -1,0 +1,2 @@
+create table 'files'(id integer primary key, path text, name text, size text, type int, health int);
+create table 'scene'(id int, fmto text, location text, act text, foreign key(id) references files(id));
