@@ -1,8 +1,9 @@
 
-body{margin: 0px; padding: 0px; font: 18px helvetica}
+body{margin: 0px; padding: 0px;}
 body>div{display: none}
 
 *[id]>*[class]{position: absolute; border-width: 1px; border-style: dotted;}
+*[id]>*[class]:focus{outline: none; border-bottom-style: solid;}
 *[id="fd01"]>*[class]{border-color: #09f;}
 *[id="td01"]>*[class]{border-color: #f90;}
 *[id]>*[class]>div{height: 100%; width: 100%;}

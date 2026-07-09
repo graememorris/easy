@@ -2,7 +2,7 @@
 #include <string.h>
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
-#include "animation_analyzer.h"
+#include "getanim.h"
 
 int extract_animation_properties(const char *filepath, struct AnimationProperties *out_props)
 {
