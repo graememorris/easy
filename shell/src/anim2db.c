@@ -9,7 +9,7 @@ this should compile with gcc controller01.c animation_analyzer.c -o visual_inspe
 #include <sqlite3.h>     // SQLite3 C API
 
 // Include your existing header file exactly as it is named
-#include "animation_analyzer.h" 
+#include "getanim.h" 
 
 // Function Prototypes
 int process_single_file(sqlite3 *db, sqlite3_stmt *select_stmt, sqlite3_stmt *insert_stmt, sqlite3_stmt *update_stmt);
