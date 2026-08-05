@@ -1,22 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <signal.h>
-
-int ns;
+#include "../include/easy.h"
 
 static void catch_function(int signo)
 {
-	puts("\nInteractive attention signal caught.\n");
+	db->close(db, 0);
+	puts("\nInteractive attention signal caught, berkeley db shut down cleanly.\n");
 	exit(0);
 }
 
 void writeheader(int hd)
 {
-	char *h[2] = {"HTTP/1.1 200 OK\nContent-Type: ", "\n\n"};
+	char *h[2] = {"HTTP/1.1 200 OK\nContent-Type: ", "\r\n\r\n"};
 	char *http[7] = {"text/css", "application/javascript", "text/plain", "text/html", "text/json", "application/wasm", "HTTP/1.1 204 No Content\n\n"};
 	char buf[512];
 	if (hd<6){
@@ -122,6 +115,10 @@ int getuistr(char *req)
 	strncpy(str, pfirst, plast-pfirst);
 	str[plast-pfirst]='\0';
 	if (j) decodefstr(str);
+	else if (code[0]=='b'){
+		writeheader(code[2]-'0');
+		dbcmd(str, &code[1]);
+	}
 	else if (code[0]!='s'){
     writeheader(code[1]-'0');//converts single char to int (0=48, 1=49, 2=50 etc, therefore 2='2'(50)-'0'(48))
     char buffer[4096]; 
@@ -140,6 +137,8 @@ int getuistr(char *req)
 int runserver(unsigned port)
 {
 	int s, i=0;
+	if ((db_create(&db, NULL, 0))!=0){puts("can't get db handle"); return 1;}
+	if ((db->open(db, NULL, "/home/gm/programs/git/easy/ht/docs/berkeleydbs/postdiary.db", NULL, DB_BTREE, DB_CREATE, 0))!=0) {puts("can't open postdiary.db"); return 1;}
 	struct sockaddr_in sa, ca;
 	socklen_t len=sizeof(sa);
 	sa.sin_family=AF_INET;
